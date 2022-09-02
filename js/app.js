@@ -30,6 +30,7 @@ const newsDisplayByCategory = (id, categoryName) => {
     const displayNewsContainer = document.getElementById('display-news-container');
     displayNewsContainer.textContent = '';
     const foundItemCount = document.getElementById('found-item-count');
+    foundItemCount.classList.remove('d-none');
     if(data.data.length === 0){
       foundItemCount.innerText = 'No News Found';
     }
