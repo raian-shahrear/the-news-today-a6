@@ -15,7 +15,7 @@ const displayCatagories = (categories) => {
 
     const li = document.createElement('li');
     li.innerHTML = `
-    <div href="" class="text-secondary fw-semibold fs-5 cursor-on-category" onclick = "newsDisplayByCategory('${category_id}', '${category_name}')">${category_name}</div>
+    <div class="text-secondary fw-semibold fs-5 cursor-on-category" onclick = "newsDisplayByCategory('${category_id}', '${category_name}')">${category_name}</div>
     `
     displayCategoryList.appendChild(li);
   });
@@ -29,6 +29,7 @@ const newsDisplayByCategory = (id, categoryName) => {
   .then(data => {
     const displayNewsContainer = document.getElementById('display-news-container');
     displayNewsContainer.textContent = '';
+    // Count the news item
     const foundItemCount = document.getElementById('found-item-count');
     foundItemCount.classList.remove('d-none');
     if(data.data.length === 0){
@@ -37,7 +38,7 @@ const newsDisplayByCategory = (id, categoryName) => {
     else{
       foundItemCount.innerText = `${data.data.length} news found for category ${categoryName}`;
     }
-    console.log(data.data.length)
+    // looping and creating news card
     data.data.forEach(news => {
       const {thumbnail_url, category_id, title, details, author, total_view} = news;
 
@@ -45,10 +46,10 @@ const newsDisplayByCategory = (id, categoryName) => {
       div.innerHTML = `
         <div class="card mb-4 w-100 rounded-4 p-3 border-0 shadow">
           <div class="row g-0">
-            <div class="col-4">
+            <div class="col-4 w-25">
               <img src=${thumbnail_url} class="img-fluid h-100 rounded" alt=${category_id}>
             </div>
-            <div class="col-8">
+            <div class="col-8 w-75">
               <div class="card-body">
                 <h5 class="card-title fw-bold mb-3">${title}</h5>
                 <p class="card-text text-secondary">${details.length > 500 ? details.slice(0, 499) + '...' : details}</p>
