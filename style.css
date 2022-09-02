@@ -3,6 +3,10 @@
 
 body{
   font-family: 'Roboto', sans-serif;
+  background-color: #F6F6F6;
+}
+a{
+  text-decoration: none;
 }
 
 .logo-text{
