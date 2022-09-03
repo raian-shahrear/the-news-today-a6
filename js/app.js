@@ -67,15 +67,15 @@ const newsDisplayByCategory = (catId, categoryName) => {
       const div = document.createElement('div');
       div.innerHTML = `
         <div class="card mb-4 w-100 rounded-4 p-3 border-0 shadow">
-          <div class="row g-0">
-            <div class="col-4 w-25">
+          <div class="row flex-column flex-lg-row g-0">
+            <div class="col-lg-4 text-center text-lg-start">
               <img src=${thumbnail_url} class="img-fluid h-100 rounded" alt=${category_id}>
             </div>
-            <div class="col-8 w-75">
+            <div class="col-lg-8">
               <div class="card-body">
-                <h5 class="card-title fw-bold mb-3">${title}</h5>
-                <p class="card-text text-secondary">${details.length > 500 ? details.slice(0, 499) + '...' : details}</p>
-                <div class="row g-0 align-items-center">
+                <h5 class="card-title fw-bold mb-3 text-center text-lg-start">${title}</h5>
+                <p class="card-text text-secondary text-center text-lg-start">${details.length > 500 ? details.slice(0, 499) + '...' : details}</p>
+                <div class="row g-0 align-items-center mt-5">
                   <div class="col">
                     <div class="d-flex align-items-center justify-content-between gap-2">
                       <div class="w-50">
