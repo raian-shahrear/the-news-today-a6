@@ -10,7 +10,7 @@ getItemsByFetchURL();
 // Loading Spinner Control
 const loadingSpinnerControl = (isSearching) => {
   const loadingSpinner = document.getElementById('loading-spinner');
-  if(isSearching === true){
+  if(isSearching){
     loadingSpinner.classList.remove('d-none');
   }
   else{
@@ -59,8 +59,9 @@ const newsDisplayByCategory = (catId, categoryName) => {
       footerPosition.classList.add('position-relative');
     }
 
+    const moreView = data.data.sort((a, b) => b.total_view - a.total_view)
     // looping and creating news card
-    data.data.forEach(news => {
+    moreView.forEach(news => {
       const {thumbnail_url, category_id, title, details, author, total_view, _id:news_id} = news;
       const div = document.createElement('div');
       div.innerHTML = `
@@ -113,8 +114,8 @@ const newsDisplayByCategory = (catId, categoryName) => {
         </div>
       `;
       displayNewsContainer.appendChild(div);
-      
     })
+
     // Loading Spinner Control
     loadingSpinnerControl(false);
   })
