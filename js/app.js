@@ -50,7 +50,7 @@ const displayCatagories = (categories) => {
     const li = document.createElement('li');
     li.classList.add('col-6')
     li.innerHTML = `
-    <div class="text-secondary fw-semibold fs-5 cursor-on-category" onclick = "newsDisplayByCategory('${category_id}', '${category_name}')">${category_name}</div>
+      <div class="text-secondary fw-semibold fs-5 cursor-on-category" onclick = "newsDisplayByCategory('${category_id}', '${category_name}')">${category_name}</div>
     `;
     displayCategoryList.appendChild(li);
   });
@@ -60,16 +60,16 @@ const displayCatagories = (categories) => {
 
 // News Display By Category
 const newsDisplayByCategory = (catId, categoryName) => {
-  const url = `https://openapi.programming-hero.com/api/news/category/${catId}`
+  // Loading Spinner Control
+  loadingSpinnerControl(true);
+  
+  const url = `https://openapi.programming-hero.com/api/news/category/${catId}`;
   fetch(url)
   .then(res => res.json())
-  .then(data => {
-    // Loading Spinner Control
-    loadingSpinnerControl(true);
-
+  .then(data => {    
     // Display News Container
     const displayNewsContainer = document.getElementById('display-news-container');
-    displayNewsContainer.innerHTML = '';
+    displayNewsContainer.textContent = '';
 
     // Footer Positioning & Count The News Items
     footerPositioningAndCountItems(data.data.length, categoryName);
@@ -135,8 +135,8 @@ const newsDisplayByCategory = (catId, categoryName) => {
     // Loading Spinner Control
     loadingSpinnerControl(false);
   })
-  
   .catch(err => alert(err))
+  
 }
 
 
@@ -175,6 +175,5 @@ const displayDetailsModal = (modalDetails, categoryName) => {
       </div>
     </div>
   `;
-  
 }
 
