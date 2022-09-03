@@ -29,15 +29,21 @@ const newsDisplayByCategory = (id, categoryName) => {
   .then(data => {
     const displayNewsContainer = document.getElementById('display-news-container');
     displayNewsContainer.textContent = '';
+    // Footer Positioning
+    const footerPosition = document.getElementById('footer-position');
     // Count the news item
     const foundItemCount = document.getElementById('found-item-count');
     foundItemCount.classList.remove('d-none');
     if(data.data.length === 0){
       foundItemCount.innerText = 'No News Found';
+      footerPosition.classList.add('position-absolute');
     }
     else{
       foundItemCount.innerText = `${data.data.length} news found for category ${categoryName}`;
+      footerPosition.classList.remove('position-absolute');
+      footerPosition.classList.add('position-relative');
     }
+
     // looping and creating news card
     data.data.forEach(news => {
       const {thumbnail_url, category_id, title, details, author, total_view} = news;
