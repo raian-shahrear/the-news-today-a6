@@ -77,11 +77,11 @@ const newsDisplayByCategory = (catId, categoryName) => {
                 <p class="card-text text-secondary text-center text-lg-start">${details.length > 500 ? details.slice(0, 499) + '...' : details}</p>
                 <div class="row g-0 align-items-center mt-5">
                   <div class="col">
-                    <div class="d-flex align-items-center justify-content-between gap-2">
-                      <div class="w-50">
+                    <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between gap-2">
+                      <div class="w-75">
                         <img src=${author.img} class="w-100 rounded-circle" alt=${category_id}>
                       </div>
-                      <div>
+                      <div class="text-center text-lg-start">
                         <p class="mb-1">${author.name ? author.name : 'Not Found'}</p>
                         <p class="m-0 text-secondary">${author.published_date ? author.published_date : 'Not Found'}</p>
                       </div>
