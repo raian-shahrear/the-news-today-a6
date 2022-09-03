@@ -34,8 +34,8 @@ const displayCatagories = (categories) => {
 }
 
 
-const newsDisplayByCategory = (id, categoryName) => {
-  const url = `https://openapi.programming-hero.com/api/news/category/${id}`
+const newsDisplayByCategory = (catId, categoryName) => {
+  const url = `https://openapi.programming-hero.com/api/news/category/${catId}`
   fetch(url)
   .then(res => res.json())
   .then(data => {
@@ -61,7 +61,7 @@ const newsDisplayByCategory = (id, categoryName) => {
 
     // looping and creating news card
     data.data.forEach(news => {
-      const {thumbnail_url, category_id, title, details, author, total_view} = news;
+      const {thumbnail_url, category_id, title, details, author, total_view, _id:news_id} = news;
       const div = document.createElement('div');
       div.innerHTML = `
         <div class="card mb-4 w-100 rounded-4 p-3 border-0 shadow">
@@ -104,7 +104,7 @@ const newsDisplayByCategory = (id, categoryName) => {
                   </div>
 
                   <div class="col text-end">
-                    <p class="fs-5 m-0 text-primary cursor-on-category" data-bs-toggle="modal" data-bs-target="#detailsModal" onclick="displayModal()"><i class="fa-solid fa-arrow-right-long"></i></p>
+                    <button onclick="displayModal('${news_id}', '${categoryName}')" class="btn fs-5 m-0 text-primary cursor-on-category" data-bs-toggle="modal" data-bs-target="#display-modal"><i class="fa-solid fa-arrow-right-long"></i></button>
                   </div>
                 </div>
               </div>
@@ -124,7 +124,38 @@ const newsDisplayByCategory = (id, categoryName) => {
 
 
 // Modal to Show Details
-const displayModal = () => {
-  const showDetailsModal = document.getElementById('show-details-modal');
+const displayModal = (newsId, categoryName) => {
+  console.log(newsId)
+  const url = `https://openapi.programming-hero.com/api/news/${newsId}`
+  fetch(url)
+  .then(res => res.json())
+  .then(data => displayDetailsModal(data.data[0], categoryName))
+  
+}
+
+const displayDetailsModal = (modalDetails, categoryName) => {
+  const {image_url, title, details} = modalDetails;
+  const displayModalField = document.getElementById('display-modal-container');
+  displayModalField.innerHTML = `
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold fs-4" id="exampleModalLabel">${categoryName}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <img src=${image_url} class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title fw-bold mb-3">${title}</h5>
+            <p class="card-text">${details}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  `;
+  
 }
 
