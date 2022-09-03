@@ -46,7 +46,6 @@ const displayCatagories = (categories) => {
   const displayCategoryList = document.getElementById('display-category-list');
   categories.data.news_category.forEach(category => {
     const {category_id, category_name} = category
-
     const li = document.createElement('li');
     li.classList.add('col-6')
     li.innerHTML = `
@@ -62,11 +61,12 @@ const displayCatagories = (categories) => {
 const newsDisplayByCategory = (catId, categoryName) => {
   // Loading Spinner Control
   loadingSpinnerControl(true);
-  
+
   const url = `https://openapi.programming-hero.com/api/news/category/${catId}`;
   fetch(url)
   .then(res => res.json())
-  .then(data => {    
+  .then(data => {   
+    console.log(data) 
     // Display News Container
     const displayNewsContainer = document.getElementById('display-news-container');
     displayNewsContainer.textContent = '';
@@ -131,13 +131,13 @@ const newsDisplayByCategory = (catId, categoryName) => {
       `;
       displayNewsContainer.appendChild(div);
     })
-
     // Loading Spinner Control
     loadingSpinnerControl(false);
   })
   .catch(err => alert(err))
-  
 }
+
+//
 
 
 
