@@ -26,6 +26,7 @@ const displayCatagories = (categories) => {
     const {category_id, category_name} = category
 
     const li = document.createElement('li');
+    li.classList.add('col-6')
     li.innerHTML = `
     <div class="text-secondary fw-semibold fs-5 cursor-on-category" onclick = "newsDisplayByCategory('${category_id}', '${category_name}')">${category_name}</div>
     `;
