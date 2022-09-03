@@ -7,7 +7,19 @@ const getItemsByFetchURL = () => {
 }
 getItemsByFetchURL();
 
+// Loading Spinner Control
+const loadingSpinnerControl = (isSearching) => {
+  const loadingSpinner = document.getElementById('loading-spinner');
+  if(isSearching === true){
+    loadingSpinner.classList.remove('d-none');
+  }
+  else{
+    loadingSpinner.classList.add('d-none');
+  }
+}
 
+
+// Display Categories
 const displayCatagories = (categories) => {
   const displayCategoryList = document.getElementById('display-category-list');
   categories.data.news_category.forEach(category => {
@@ -16,7 +28,7 @@ const displayCatagories = (categories) => {
     const li = document.createElement('li');
     li.innerHTML = `
     <div class="text-secondary fw-semibold fs-5 cursor-on-category" onclick = "newsDisplayByCategory('${category_id}', '${category_name}')">${category_name}</div>
-    `
+    `;
     displayCategoryList.appendChild(li);
   });
 }
@@ -27,8 +39,11 @@ const newsDisplayByCategory = (id, categoryName) => {
   fetch(url)
   .then(res => res.json())
   .then(data => {
+    // Loading Spinner Control
+    loadingSpinnerControl(true);
+    // Display News Container
     const displayNewsContainer = document.getElementById('display-news-container');
-    displayNewsContainer.textContent = '';
+    displayNewsContainer.innerHTML = '';
     // Footer Positioning
     const footerPosition = document.getElementById('footer-position');
     // Count the news item
@@ -47,7 +62,6 @@ const newsDisplayByCategory = (id, categoryName) => {
     // looping and creating news card
     data.data.forEach(news => {
       const {thumbnail_url, category_id, title, details, author, total_view} = news;
-
       const div = document.createElement('div');
       div.innerHTML = `
         <div class="card mb-4 w-100 rounded-4 p-3 border-0 shadow">
@@ -90,18 +104,27 @@ const newsDisplayByCategory = (id, categoryName) => {
                   </div>
 
                   <div class="col text-end">
-                    <p class="fs-5 m-0 text-primary cursor-on-category"><i class="fa-solid fa-arrow-right-long"></i></p>
+                    <p class="fs-5 m-0 text-primary cursor-on-category" data-bs-toggle="modal" data-bs-target="#detailsModal" onclick="displayModal()"><i class="fa-solid fa-arrow-right-long"></i></p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      `
-      displayNewsContainer.appendChild(div)
+      `;
+      displayNewsContainer.appendChild(div);
+      
     })
-
+    // Loading Spinner Control
+    loadingSpinnerControl(false);
   })
+  
   .catch(err => alert(err))
+}
+
+
+// Modal to Show Details
+const displayModal = () => {
+  const showDetailsModal = document.getElementById('show-details-modal');
 }
 
